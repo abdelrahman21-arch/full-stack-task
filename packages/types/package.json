@@ -1,0 +1,22 @@
+{
+  "name": "@repo/types",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "node ../../scripts/run-tsc.mjs -p tsconfig.json --watch",
+    "build": "node ../../scripts/run-tsc.mjs -p tsconfig.json",
+    "typecheck": "node ../../scripts/run-tsc.mjs -p tsconfig.json --noEmit",
+    "lint": "node ../../scripts/run-tsc.mjs -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@repo/schemas": "workspace:*"
+  }
+}

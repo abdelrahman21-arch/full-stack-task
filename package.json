@@ -1,0 +1,21 @@
+{
+  "name": "referral-monorepo",
+  "private": true,
+  "packageManager": "pnpm@10.0.0",
+  "scripts": {
+    "predev": "node scripts/link-workspace-deps.mjs && node scripts/build-shared.mjs",
+    "dev": "node scripts/dev.mjs",
+    "prebuild": "node scripts/link-workspace-deps.mjs && node scripts/build-shared.mjs",
+    "build": "node scripts/run-turbo.mjs run build",
+    "typecheck": "node scripts/run-turbo.mjs run typecheck",
+    "lint": "node scripts/run-turbo.mjs run lint",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "devDependencies": {
+    "drizzle-kit": "0.31.4",
+    "turbo": "2.0.14",
+    "typescript": "5.8.3"
+  }
+}
