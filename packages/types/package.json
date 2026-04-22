@@ -11,10 +11,10 @@
     }
   },
   "scripts": {
-    "dev": "node ../../scripts/run-tsc.mjs -p tsconfig.json --watch",
-    "build": "node ../../scripts/run-tsc.mjs -p tsconfig.json",
-    "typecheck": "node ../../scripts/run-tsc.mjs -p tsconfig.json --noEmit",
-    "lint": "node ../../scripts/run-tsc.mjs -p tsconfig.json --noEmit"
+    "dev": "tsc -p tsconfig.json --watch",
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
     "@repo/schemas": "workspace:*"

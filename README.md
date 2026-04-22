@@ -1,6 +1,6 @@
 # Referral Monorepo
 
-TypeScript monorepo scaffold for a referral intake flow built with Next.js App Router, a standalone tRPC server, Drizzle ORM, PostgreSQL, Zod, pnpm workspaces, and Turborepo-style root scripts.
+TypeScript monorepo scaffold for a referral intake flow built with Next.js App Router, a standalone tRPC server, Drizzle ORM, PostgreSQL, Zod, and pnpm workspaces.
 
 ## What This Repo Includes
 
@@ -10,8 +10,6 @@ TypeScript monorepo scaffold for a referral intake flow built with Next.js App R
 - `packages/types`: shared type exports derived from the schemas package
 - `packages/utils`: shared runtime helpers such as error formatting and the shared tRPC path constant
 - `db`: Drizzle schema and generated migrations
-- `scripts`: wrapper scripts for `next`, `tsx`, `tsc`, and workspace bootstrapping
-
 ## Setup Steps
 
 ### 1. Prerequisites
@@ -28,7 +26,7 @@ From the workspace root:
 pnpm install
 ```
 
-This repo uses root script wrappers rather than assuming every CLI is available in `node_modules/.bin`, so stick to the workspace scripts instead of invoking tools directly where possible.
+This repo uses standard pnpm workspace binaries, so the package scripts call tools like `next`, `tsx`, `tsc`, and `turbo` directly.
 
 ### 3. Configure environment variables
 
@@ -130,7 +128,6 @@ pnpm --filter @repo/server build
 |   |-- schemas/
 |   |-- types/
 |   `-- utils/
-|-- scripts/
 |-- drizzle.config.ts
 |-- package.json
 |-- pnpm-workspace.yaml
@@ -176,15 +173,13 @@ Drizzle gives typed schema definitions and migrations while staying close to SQL
 
 This combination keeps the data layer explicit without introducing a heavy ORM abstraction that hides the actual schema.
 
-### Why the root scripts exist
+### Why the workspace uses pnpm directly
 
-The root `scripts/` folder wraps tools like `tsc`, `tsx`, `next`, and `turbo` so the workspace can be bootstrapped consistently from the root. In this repo, those wrappers also ensure shared packages are linked and built before app-level commands run.
-
-That matters because the apps depend on generated output from the shared workspace packages.
+The shared packages still need to compile before the apps consume their `dist/` output, but that flow is handled through normal workspace scripts rather than custom wrapper scripts.
 
 ## Development Notes
 
-- Shared packages are built into `dist/` before app builds and dev startup
+- Shared packages are built into `dist/` before app dev startup and before dependent app builds
 - `apps/server/tsconfig.json` uses `NodeNext` because the server runs as native ESM in Node
 - the root `tsconfig.json` is intentionally minimal and does not rely on `baseUrl`
 - `apps/server/src/env.ts` validates environment variables at startup, so missing database configuration fails early

@@ -71,12 +71,12 @@ const fieldClassName =
 export function ReferralForm() {
   const [serverError, setServerError] = useState<AppError | null>(null);
   const [submittedReferralId, setSubmittedReferralId] = useState<string | null>(null);
-
-  const form = useForm<ReferralFormInput>({
+ 
+ const form = useForm<ReferralFormInput>({
     resolver: zodResolver(referralFormSchema),
     defaultValues,
   });
-
+  
   const submitReferral = trpc.referral.submitReferral.useMutation({
     onSuccess(result) {
       if (result.success) {
